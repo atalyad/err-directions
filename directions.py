@@ -1,3 +1,4 @@
+import re
 from errbot.botplugin import BotPlugin
 from errbot.jabberbot import botcmd
 from urllib import quote
@@ -14,6 +15,9 @@ class Directions(BotPlugin):
 
     def generate_directions_str(self, json_res):
 
+        remove_html_tags = re.compile(r'<.*?>')
+        too_many_spaces = re.compile(r'  +')
+
         ans = ''
         if 'routes' in json_res and len(json_res['routes']):
             for route in json_res['routes']:
@@ -24,7 +28,7 @@ class Directions(BotPlugin):
                     ans += '%s\n' % leg['duration']['text']
 
                     for step in leg['steps']:
-                        ans += step['html_instructions'].replace('/<[^>]+>/g', ' ')
+                        ans += too_many_spaces.sub(' ', remove_html_tags.sub(' ', step['html_instructions']))
                         ans += ' (%s)\n' % step['distance']['text']
 
                 if 'warnings' in route and route['warnings']:
