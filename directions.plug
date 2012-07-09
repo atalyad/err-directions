@@ -1,0 +1,6 @@
+[Core]
+Name = DirectionsPlugin
+Module = directions
+
+[Documentation]
+Description = gives you the directions from a to b.
