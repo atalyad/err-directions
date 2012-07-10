@@ -30,7 +30,7 @@ class DirectionsBuilder(type):
 class Directions(BotPlugin):
     __metaclass__ = DirectionsBuilder
 
-    min_err_version = '1.2.1' # make err split the arguments for you
+    min_err_version = '1.4.1' # need a bug correction on the metaclasses generation
 
     def generate_directions_str(self, json_res):
         remove_html_tags = re.compile(r'<.*?>')
